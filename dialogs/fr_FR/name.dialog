@@ -1,0 +1,4 @@
+Mon nom est {{ name }}
+Je m'appelle {{ name }}
+Je me nomme {{ name }}
+{{ name }}

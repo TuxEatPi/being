@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<project xmlns:nuance="https://developer.nuance.com/mix/nlu/trsx" xml:lang="fr-FR" nuance:version="2.0">
+  <ontology base="http://developer.nuance.com/mix/nlu/trsx/ontology-1.0">
+    <intents>
+      <intent name="being__name"/>
+      <intent name="being__birth"/>
+      <intent name="being__birthday"/>
+      <intent name="being__age"/>
+    </intents>
+  </ontology>
+  <dictionaries>
+  </dictionaries>
+  <samples>
+    <sample intentref="being__name">
+      Comment tu t'appelles ?
+    </sample>
+    <sample intentref="being__name">
+      Quel est ton nom ?
+    </sample>
+    <sample intentref="being__name">
+      C'est quoi ton nom ?
+    </sample>
+    <sample intentref="being__birthdate">
+      tu es né quand ?
+    </sample>
+    <sample intentref="being__birthdate">
+      Quand es tu né ?
+    </sample>
+    <sample intentref="being__birthdate">
+      Quel jour est tu né ?
+    </sample>
+    <sample intentref="being__birthdate">
+      Quel est le jour de ta naissance ?
+    </sample>
+    <sample intentref="being__birthday">
+      Quand est ton anniversaire ?
+    </sample>
+    <sample intentref="being__birthday">
+      C'est quand ton anniversaire ?
+    </sample>
+    <sample intentref="being__age">
+      Quel âge as tu ?
+    </sample>
+    <sample intentref="being__age">
+      Tu as quel âge
+    </sample>
+  </samples>
+</project>

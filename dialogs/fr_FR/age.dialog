@@ -1,0 +1,3 @@
+J'ai {% if years > 1 %} {{ years }} ans {% elif years == 1 %} {{ year }} an {% elif months > 1 %} {{ months }} mois {% elif months == 1 %} {{ months }} mois {% elif days > 1 %} {{ days }} jours {% else %} 1 jour {% endif %}
+Je suis agé de {% if years > 1 %} {{ years }} ans {% elif years == 1 %} {{ year }} an {% elif months > 1 %} {{ months }} mois {% elif months == 1 %} {{ months }} mois {% elif days > 1 %} {{ days }} jours {% else %} 1 jour {% endif %}
+{% if years > 1 %} {{ years }} ans {% elif years == 1 %} {{ year }} an {% elif months > 1 %} {{ months }} mois {% elif months == 1 %} {{ months }} mois {% elif days > 1 %} {{ days }} jours {% else %} 1 jour {% endif %}

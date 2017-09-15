@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<project xmlns:nuance="https://developer.nuance.com/mix/nlu/trsx" xml:lang="fr-FR" nuance:version="2.0">
+  <ontology base="http://developer.nuance.com/mix/nlu/trsx/ontology-1.0">
+    <intents>
+      <intent name="being__name"/>
+      <intent name="being__birth"/>
+      <intent name="being__birthday"/>
+      <intent name="being__age"/>
+    </intents>
+  </ontology>
+  <dictionaries>
+  </dictionaries>
+  <samples>
+    <sample intentref="being__name">
+      What is your name ?
+    </sample>
+    <sample intentref="being__birthdate">
+      When are you born ?
+    </sample>
+    <sample intentref="being__birthdate">
+      When is your birth date ?
+    </sample>
+    <sample intentref="being__birthday">
+      When is your birthday ?
+    </sample>
+    <sample intentref="being__age">
+      How old are you ?
+    </sample>
+  </samples>
+</project>

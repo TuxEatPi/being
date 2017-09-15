@@ -1,0 +1,2 @@
+Le {{ day }} {{ month }}
+Mon anniversaire est le {{ day }} {{ month }}

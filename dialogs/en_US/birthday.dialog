@@ -1,0 +1,2 @@
+{{ birthday }}
+My birthday is on {{ birthday }}
