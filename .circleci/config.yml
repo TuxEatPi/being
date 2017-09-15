@@ -3,7 +3,7 @@ workflows:
   version: 2
   test__dockerhub:
     jobs:
-      - test_build
+      - test
       - build_docker_latest:
           requires:
             - test
@@ -16,7 +16,7 @@ workflows:
 version: 2
 jobs:
   # Tests
-  test_build:
+  test:
     docker:
       - image: circleci/python:3.6.1
       - image: eclipse-mosquitto:latest
