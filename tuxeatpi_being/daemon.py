@@ -57,10 +57,11 @@ class Being(TepBaseDaemon):
         birthdate_datetime = datetime.datetime.fromtimestamp(self.birthdate_)
         birth_fmt = birthdate_datetime.strftime(day_format)
         # Get dialog
-        dialog = self.get_dialog("birthdate", birth=birth_fmt,
+        dialog = self.get_dialog("birthdate", birthdate=birth_fmt,
                                  year=birthdate_datetime.year,
                                  month=birthdate_datetime.month,
                                  day=birthdate_datetime.day)
+        self.logger.info('dialog')
         # Prepare message
         data = {"arguments": {"text": dialog}}
         topic = "speech/say"
@@ -78,7 +79,7 @@ class Being(TepBaseDaemon):
         birth_fmt = birthdate_datetime.strftime(day_format)
         month = birthdate_datetime.strftime("%B")
         # Get dialog
-        dialog = self.get_dialog("birthdate", birthday=birth_fmt,
+        dialog = self.get_dialog("birthday", birthday=birth_fmt,
                                  month=month,
                                  day=birthdate_datetime.day)
         # Prepare message

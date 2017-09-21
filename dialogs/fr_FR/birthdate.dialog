@@ -1,2 +1,2 @@
-Le {{ birth }}
-Je suis né le {{ birth }}
+Le {{ birthdate }}
+Je suis né le {{ birthdate }}

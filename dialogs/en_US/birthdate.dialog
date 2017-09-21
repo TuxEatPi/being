@@ -1,2 +1,2 @@
-{{ birth }}
-I was born on {{ birth }}
+{{ birthdate }}
+I was born on {{ birthdate }}

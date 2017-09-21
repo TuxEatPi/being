@@ -3,7 +3,7 @@
   <ontology base="http://developer.nuance.com/mix/nlu/trsx/ontology-1.0">
     <intents>
       <intent name="being__name"/>
-      <intent name="being__birth"/>
+      <intent name="being__birthdate"/>
       <intent name="being__birthday"/>
       <intent name="being__age"/>
     </intents>
