@@ -4,11 +4,11 @@ import time
 import threading
 
 import pytest
+from wampy.peers import Client
 
 from tuxeatpi_common.cli import main_cli, set_daemon_class
 from tuxeatpi_being.daemon import Being
-from tuxeatpi_common.message import Message, MqttClient
-import paho.mqtt.client as paho
+from tuxeatpi_common.message import Message
 
 
 from click.testing import CliRunner
@@ -24,14 +24,14 @@ class TestTime(object):
         self.being_daemon.settings.language = "en_US"
         self.message = None
 
-        def get_message(mqttc, obj, msg):
-            payload = json.loads(msg.payload.decode())
-            self.message = payload.get("data", {}).get("arguments", {})
-        self.mqtt_client = paho.Client()
-        self.mqtt_client.connect("127.0.0.1", 1883, 60)
-        self.mqtt_client.on_message = get_message
-        self.mqtt_client.subscribe("speech/say", 0)
-        self.mqtt_client.loop_start()
+        def speech_say(text):
+            self.message = text
+
+        self.wamp_client = Client(realm="tuxeatpi")
+        self.wamp_client.start()
+
+        self.wamp_client.session._register_procedure("speech.say")
+        setattr(self.wamp_client, "speech.say", speech_say)
 
     @classmethod
     def teardown_method(self):
@@ -65,7 +65,7 @@ class TestTime(object):
         assert self.message is None
         self.being_daemon.name__()
         time.sleep(1)
-        assert self.message.get("text") is not None
+        assert self.message is not None
 
     @pytest.mark.order2
     def test_birthday(self, capsys):
@@ -86,7 +86,7 @@ class TestTime(object):
         assert self.message is None
         self.being_daemon.birthday()
         time.sleep(1)
-        assert self.message.get("text") is not None
+        assert self.message is not None
 
     @pytest.mark.order3
     def test_birthdate(self, capsys):
@@ -107,7 +107,7 @@ class TestTime(object):
         assert self.message is None
         self.being_daemon.birthdate()
         time.sleep(1)
-        assert self.message.get("text") is not None
+        assert self.message is not None
 
     @pytest.mark.order4
     def test_age(self, capsys):
@@ -128,4 +128,4 @@ class TestTime(object):
         assert self.message is None
         self.being_daemon.age()
         time.sleep(1)
-        assert self.message.get("text") is not None
+        assert self.message is not None

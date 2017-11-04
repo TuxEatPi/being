@@ -19,7 +19,7 @@ jobs:
   test:
     docker:
       - image: circleci/python:3.6.1
-      - image: eclipse-mosquitto:latest
+      - image: tuxeatpi/crossbar:cpy3-17.9.2
       - image: quay.io/coreos/etcd
         command:
         - /usr/local/bin/etcd
@@ -55,7 +55,7 @@ jobs:
             python setup.py develop
             pycodestyle --max-line-length=100 tuxeatpi_being
             pylint --rcfile=.pylintrc -r no tuxeatpi_being
-            pytest --html=pytest/report.html --self-contained-html --junit-xml=pytest/junit.xml --cov=tuxeatpi_being/ --cov-report=term --cov-report=html:pytest/coverage/html --cov-report=xml:pytest/coverage/coverage.xml tests 
+            pytest --html=pytest/report.html --self-contained-html --junit-xml=pytest/junit.xml --cov=tuxeatpi_being/ --cov-report=term --cov-report=html:pytest/coverage/html --cov-report=xml:pytest/coverage/coverage.xml -p no:pytest_wampy tests 
             coverage combine || true
             coverage report --include='*/tuxeatpi_being/*'
       - store_artifacts:

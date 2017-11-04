@@ -5,10 +5,10 @@ import locale
 import datetime
 
 import agecalc
-from tuxeatpi_common.message import Message, is_mqtt_topic
+
+from tuxeatpi_common.wamp import is_wamp_topic, is_wamp_rpc
 from tuxeatpi_common.daemon import TepBaseDaemon
 from tuxeatpi_common.error import TuxEatPiError
-
 from tuxeatpi_being.initializer import BeingInitializer
 
 
@@ -30,28 +30,26 @@ class Being(TepBaseDaemon):
         self.name_ = config.get("name")
         return True
 
-    @is_mqtt_topic("help")
+    @is_wamp_rpc("help")
     def help_(self):
         """Help for time component"""
         pass
 
-    @is_mqtt_topic("name")
+    @is_wamp_rpc("name")
+    @is_wamp_topic("name")
     def name__(self):
         """Get name"""
-        self.logger.info("being/name called")
+        self.logger.info("being.name called")
         # Get dialog
         dialog = self.get_dialog("name", name=self.name_)
-        # Prepare message
-        data = {"arguments": {"text": dialog}}
-        topic = "speech/say"
-        message = Message(topic=topic, data=data)
-        # Send message
-        self.publish(message)
+        # Say answer
+        self.call("speech.say", text=dialog)
 
-    @is_mqtt_topic("birthdate")
+    @is_wamp_rpc("birthdate")
+    @is_wamp_topic("birthdate")
     def birthdate(self):
         """Return birth"""
-        self.logger.info("being/birthdate called")
+        self.logger.info("being.birthdate called")
         # Get time format
         day_format = locale.nl_langinfo(locale.D_FMT)
         birthdate_datetime = datetime.datetime.fromtimestamp(self.birthdate_)
@@ -61,18 +59,14 @@ class Being(TepBaseDaemon):
                                  year=birthdate_datetime.year,
                                  month=birthdate_datetime.month,
                                  day=birthdate_datetime.day)
-        self.logger.info('dialog')
-        # Prepare message
-        data = {"arguments": {"text": dialog}}
-        topic = "speech/say"
-        message = Message(topic=topic, data=data)
-        # Send message
-        self.publish(message)
+        # Say answer
+        self.call("speech.say", text=dialog)
 
-    @is_mqtt_topic("birthday")
+    @is_wamp_rpc("birthday")
+    @is_wamp_topic("birthday")
     def birthday(self):
         """Return birthday"""
-        self.logger.info("being/birthday called")
+        self.logger.info("being.birthday called")
         # Get time format
         day_format = locale.nl_langinfo(locale.D_FMT)
         birthdate_datetime = datetime.datetime.fromtimestamp(self.birthdate_)
@@ -82,31 +76,25 @@ class Being(TepBaseDaemon):
         dialog = self.get_dialog("birthday", birthday=birth_fmt,
                                  month=month,
                                  day=birthdate_datetime.day)
-        # Prepare message
-        data = {"arguments": {"text": dialog}}
-        topic = "speech/say"
-        message = Message(topic=topic, data=data)
-        # Send message
-        self.publish(message)
+        # Say answer
+        self.call("speech.say", text=dialog)
 
-    @is_mqtt_topic("age")
+    @is_wamp_rpc("age")
+    @is_wamp_topic("age")
     def age(self):
         """Get age"""
-        self.logger.info("being/age called")
+        self.logger.info("being.age called")
         birth_date = datetime.datetime.fromtimestamp(self.birthdate_)
         age_ = agecalc.AgeCalc(birth_date.day, birth_date.month, birth_date.year)
+        # Get dialog
         dialog = self.get_dialog("age",
                                  days=age_.age_days,
                                  weeks=age_.age_weeks,
                                  months=age_.age_months,
                                  years=age_.age_years_months.get('years', 0),
                                  )
-        # Prepare message
-        data = {"arguments": {"text": dialog}}
-        topic = "speech/say"
-        message = Message(topic=topic, data=data)
-        # Send message
-        self.publish(message)
+        # Say answer
+        self.call("speech.say", text=dialog)
 
 
 class BeingError(TuxEatPiError):
