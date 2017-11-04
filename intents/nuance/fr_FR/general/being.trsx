@@ -27,6 +27,9 @@
       Quand es tu né ?
     </sample>
     <sample intentref="being__birthdate">
+      Quand es-tu né
+    </sample>
+    <sample intentref="being__birthdate">
       Quel jour est tu né ?
     </sample>
     <sample intentref="being__birthdate">
@@ -40,6 +43,9 @@
     </sample>
     <sample intentref="being__age">
       Quel âge as tu ?
+    </sample>
+    <sample intentref="being__age">
+      Quel âge as-tu
     </sample>
     <sample intentref="being__age">
       Tu as quel âge
